@@ -1,5 +1,10 @@
 
+(no borrar los links) Link original => https://pad.riseup.net/p/EthKipuPM2cuat-keep
+
+
+
 Gitbook Completo: https://ethkipu.gitbook.io/edp-v2-es/
+
 
 Módulo 1: Clase 1 Fecha: 4/9/25
 
