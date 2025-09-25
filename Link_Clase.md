@@ -4,7 +4,7 @@
 
 
 Gitbook Completo: https://ethkipu.gitbook.io/edp-v2-es/
-
+Gitbook Completo: https://ethkipu.gitbook.io/edp-v2-es/
 
 Módulo 1: Clase 1 Fecha: 4/9/25
 
@@ -45,13 +45,10 @@ Pedido de Airdrop de Eth sepolia para hacer tarea= https://pad.riseup.net/p/fauc
 
 evm.codes => opcodes
 
- 0xc522b36404523240D1BFD574232d55E630d543BE
- 
- este funciona (Faucet):
+  este funciona (Faucet):
      https://cloud.google.com/application/web3/faucet/ethereum/sepolia
 
 EVM codigo simplificado: https://github.com/DigiCris/easyEVM
-
 
 11/9/25: clase 3-mod1
 
@@ -69,5 +66,128 @@ Remix = https://remix.ethereum.org/
 
 Contrato deployado y verificado = https://sepolia.etherscan.io/address/0xaa050942f99f4c29c95c013366bbd48a5d6d2473#readContract
 
+ 18/9/2025: clase 2:modulo 2
+ 
+ Spreadsheet de proyecto grupal extra currucular: https://docs.google.com/spreadsheets/d/1en_2vI7W1PcofaQJ1UB9_LJC_PG07Ng7MqqLOGQSyjk/edit?usp=sharing
+ 
+ github con codigo: https://github.com/DigiCris/EthKipuPM/blob/main/module2/class4/Message.sol
+ 
+ 23/9/2025:
+     
+     programa ejemplo: https://github.com/DigiCris/EducationIT/blob/main/clase2/solidity1.sol
+     
+     ToDoList.sol enunciado:
+         Vamos a partir del siguiente enunciado:
+Contrato "ToDoList"
+Desarrolla un contrato en Solidity llamado ToDoList que permita gestionar tareas. Debe incluir:
+
+Estructura Tarea:
+
+Descripción (cadena de texto).
+Tiempo de creación (entero).
+Array:
+
+s_tareas: almacena las tareas.
+Eventos:
+
+ToDoList_TareaAñadida.
+ToDoList_TareaCompletadaYEliminada.
+Funciones:
+
+setTarea(string _descripcion): añade una tarea.
+eliminarTarea(string _descripcion): elimina una tarea completada.
+getTarea(): retorna todas las tareas.
+Incluye comentarios explicativos en el código.
+
+Codigo:
+    
+    /*
+Contrato "ToDoList"
+Desarrolla un contrato en Solidity llamado ToDoList que permita gestionar tareas. Debe incluir:
+
+Estructura Tarea:
+Descripción (cadena de texto).
+Tiempo de creación (entero).
+
+Array:
+
+s_tareas: almacena las tareas.
+
+Eventos:
+
+ToDoList_TareaAñadida.
+ToDoList_TareaCompletadaYEliminada.
+
+Funciones:
+
+setTarea(string _descripcion): añade una tarea.
+eliminarTarea(string _descripcion): elimina una tarea completada.
+getTarea(): retorna todas las tareas.
+Incluye comentarios explicativos en el código.
+*/
+
+// SPDX-License-Identifier: MIT
+pragma solidity >0.8.0;
+
+contract ToDoList {
+
+    enum State {
+        SinHacer,
+        Completado
+    }
+
+    struct Tarea {
+        string description;
+        uint256 creationTime;
+        uint256 index;
+        State state;
+    }
+
+    Tarea[] public tarea; // tarea[indice]
+    uint256 private nextIndex;
+
+    event TaskAdded(uint256 indexed index,string indexed description, uint256 creationTime);
+    event TaskedStatusChanged(uint256 indexed index,string indexed description,string indexed newStatus);
+
+    function setTarea(string calldata _description) external {
+        uint256 _lastIndex = nextIndex++;
+        tarea.push(Tarea(_description,block.timestamp,_lastIndex,State.SinHacer));
+        emit TaskAdded(_lastIndex,_description, block.timestamp);
+    }
+
+    function getTareas() external view returns (Tarea[] memory) {
+        return tarea;
+    }
+
+    function eliminarTarea(string calldata _descripcion) external {
+        uint256 len = tarea.length;
+        for(uint256 i; i<len;) {
+            if(keccak256(bytes(tarea[i].description)) == keccak256(bytes(_descripcion))) {
+                emit TaskedStatusChanged(tarea[i].index,tarea[i].description,"eliminado");
+                tarea[i] = tarea[len-1];
+                tarea.pop();
+                break;
+            }
+            unchecked {
+                ++i;
+            }
+        }
+    }
+
+    function completarTarea(string calldata _descripcion) external {
+        uint256 len = tarea.length;
+        for(uint256 i; i<len;) {
+            if(keccak256(bytes(tarea[i].description)) == keccak256(bytes(_descripcion))) {
+                emit TaskedStatusChanged(tarea[i].index,tarea[i].description,"Completado");
+                tarea[i].state = State.Completado;
+                break;
+            }
+            unchecked {
+                ++i;
+            }
+        }
+    }
+
+}
 
 
