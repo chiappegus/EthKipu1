@@ -15,6 +15,7 @@ abstract  contract ERC20 is IERC20 {
     mapping(address => mapping(address => uint256)) public allowance;
 
     //https://youtu.be/w9778DlUsAQ?list=PL_r-IuCAlAeeI21VCmwdOWBZhPPwKs2Qz&t=1633
+    ///https://youtu.be/dVxu0alH2ys?list=PL_r-IuCAlAeeI21VCmwdOWBZhPPwKs2Qz&t=20
     ///@dev quiere hacer un constructo para que genere token diferentes.
 
     constructor(string memory _name, string memory _symbol) {
@@ -66,7 +67,7 @@ abstract  contract ERC20 is IERC20 {
         address _from,
         address _to,
         uint256 _value
-    ) internal  returns (bool success) {
+    ) internal  virtual  returns (bool success) {
 
          // ❌ ESTO ESTÁ MAL - revierte cuando TIENE suficiente balance
           // if (balanceOf[_from] >= _value) revert();

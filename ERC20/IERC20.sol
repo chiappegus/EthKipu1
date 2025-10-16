@@ -8,6 +8,8 @@ interface  IERC20 {
     /// @dev  hay tener en cuenta que public es external + internal.    
     error InvalidadAllowances();
     error ZeroValue();
+
+    
     
     event Transfer(address indexed _from, address indexed _to, uint256 _value);
     /// @dev aca tiene 3 ya que esta el _owner que seria el sender.msn  , lo que esta indexado sirve para buscar en los logs.
