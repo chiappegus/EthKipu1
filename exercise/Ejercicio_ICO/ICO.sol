@@ -22,7 +22,7 @@ constructor ( IERC20 _token ,uint256  _price){
 }
 
 function buy() external payable  {
-
+///@dev , aca hay que hacer una funcion que no pueda comprar mas de 100TK , si tiene , que no sume mas.
 uint256 amount = msg.value/price;   
 
 token.transfer(msg.sender, amount);
@@ -50,6 +50,9 @@ function sell_FALLA_SEGU(uint256 _amount)   external  {
       /// aca es el msg.sender , es la persona que los esta vendiendo a los token hacia To que somos nosotros.
       /// nostros es a nuestro contrato.
      token.transferFrom(msg.sender,address(this),_amount); 
+     /// la pregunta es el allowances tiene permiso para sacarme los token? msg.sender yo y el contrato => address(this)
+     ///lo pregunte y tiene cero , en el allowances , hay que quitarle o subirle el allowances.
+     /// el spender es el contrato !! y el sender yo!!(owner)
 
      ///@important  aca hicieron un pregunta de seguridad , que primero deberiamos sacarle los token , antes de comprarlos con ETH
      /// LO HIZO AL REVÉS APROPOSITO!!
@@ -79,13 +82,6 @@ function sell_Security(uint256 _amount)   external  {
 
 
 
-
-
-    
-
-
-    
 }
-
 
 }
