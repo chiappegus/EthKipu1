@@ -54,7 +54,7 @@ contract Permisos is Ownable{
            
         // } else return  false;
 
-        return balances >100*10**18 ? true : false;
+        return balances >100 ? true : false;
 
     }
     ///@dev importantisismo FALTAN LOS EVENTO , Ya que cuando estas seteando una Variable deberias porner los eventos!!
