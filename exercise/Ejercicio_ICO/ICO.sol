@@ -11,8 +11,8 @@ uint256 immutable public  price;
 
 error TranferFail();
 
-event TokenBought(address indexed  whois , uint256 quantity)
-event TokenSold(address indexed sell , uint256 indexed token, uint256 price , uint256 eth)
+event TokenBought(address indexed  whois , uint256 quantity);
+event TokenSold(address indexed sell , uint256 indexed token, uint256 price , uint256 eth);
 
 
 constructor ( IERC20 _token ,uint256  _price){
@@ -27,7 +27,7 @@ uint256 amount = msg.value/price;
 
 token.transfer(msg.sender, amount);
 
-emit  TokenBought(msg.sender, amount)
+emit  TokenBought(msg.sender, amount);
 
 }
 
@@ -75,7 +75,7 @@ function sell_Security(uint256 _amount)   external  {
      (bool succes, )   =payable(msg.sender).call{value: ehtAmount}("");   
      if(!succes) revert TranferFail();
 
-     emit  TokenSold(msg.sender , _amount, _amount/ehtAmount , ehtAmount)
+     emit  TokenSold(msg.sender , _amount, _amount/ehtAmount , ehtAmount);
 
 
 
